@@ -2,13 +2,7 @@
 name: "CodeQL"
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ "main" ]
-  schedule:
-    - cron: '26 12 * * 1'
+  workflow_dispatch:
 
 jobs:
   analyze:
@@ -42,19 +36,24 @@ jobs:
       uses: github/codeql-action/analyze@v2
       with:
         category: "/language:${{matrix.language}}"
-        
-    - run: cp /home/runner/work/Python-Helloworld/results/*.sarif .
-    - name: Upload SARIF file
-      uses: github/codeql-action/upload-sarif@v2
-      with:
+    
+  Upload:
+      runs-on: ubuntu-latest
+      steps:
+      
+      - run: cp /home/runner/work/Python-Helloworld/results/*.sarif .
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
           sarif_file: python.sarif
           category: my-analysis-tool
     
            
-    - run: mkdir codeQL_Scan_report && cp /*.sarif codeQL_Scan_report
-    - uses: actions/upload-artifact@v3
-      with:
-        name: Package
-        path: codeQL_Scan_report    
+      - run: mkdir codeQL_Scan_report && cp /*.sarif codeQL_Scan_report
+      - name: upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Package
+          path: codeQL_Scan_report    
         
     
