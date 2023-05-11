@@ -17,7 +17,6 @@ jobs:
       fail-fast: false
       matrix:
         language: [ 'python' ]
-  
 
     steps:
     - name: Checkout repository
@@ -36,9 +35,8 @@ jobs:
       uses: github/codeql-action/analyze@v2
       with:
         category: "/language:${{matrix.language}}"
-    
-           
-    - run: mkdir codeQL_Scan_report && cp /home/runner/work/_temp/codeql_databases/*.zip codeQL_Scan_report
+
+    - run: mkdir codeQL_Scan_report && cp /home/runner/work/Python-Helloworld/results/*.sarif codeQL_Scan_report
     - name: upload artifacts
       uses: actions/upload-artifact@v3
       with:
