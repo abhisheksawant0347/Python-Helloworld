@@ -41,8 +41,8 @@ jobs:
       runs-on: ubuntu-latest
       needs: analyze
       steps:
-      
-      - run: cp /home/runner/work/Python-Helloworld/results/*.sarif .
+      - uses: actions/checkout@v3
+      - run: ls -la
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
         with:
