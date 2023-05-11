@@ -42,8 +42,16 @@ jobs:
       uses: github/codeql-action/analyze@v2
       with:
         category: "/language:${{matrix.language}}"
+        
+    - run: cp /home/runner/work/Python-Helloworld/results/*.sarif .
+    - name: Upload SARIF file
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+          sarif_file: python.sarif
+          category: my-analysis-tool
+    
            
-    - run: mkdir codeQL_Scan_report && cp /home/runner/work/Python-Helloworld/results/*.sarif codeQL_Scan_report
+    - run: mkdir codeQL_Scan_report && cp /*.sarif codeQL_Scan_report
     - uses: actions/upload-artifact@v3
       with:
         name: Package
