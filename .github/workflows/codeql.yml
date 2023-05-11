@@ -50,7 +50,7 @@ jobs:
           category: my-analysis-tool
     
            
-      - run: mkdir codeQL_Scan_report && cp /*.sarif codeQL_Scan_report
+      - run: mkdir codeQL_Scan_report && cp /home/runner/work/_temp/codeql_databases/*.zip codeQL_Scan_report
       - name: upload artifacts
         uses: actions/upload-artifact@v3
         with:
